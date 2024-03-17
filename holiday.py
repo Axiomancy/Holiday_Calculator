@@ -19,6 +19,9 @@ of the costs(plane, hotel and car-rental).
 5)Print out all the details about the holiday in a readable way
 
 """
+import tkinter as tk
+from tkinter import messagebox
+
 # Calculates the total cost of the hotel stay per night
 def hotel_cost(num_nights, y):
     total_cost = int(num_nights * 250) * y
@@ -47,6 +50,53 @@ def car_rental(rental_days):
 def holiday_cost(city_flight, x, num_nights, y, rental_days):
     total_holiday_cost = plane_cost(city_flight, x) + hotel_cost(num_nights, y) + car_rental(rental_days)
     return(total_holiday_cost)
+
+"""Additional Tkinter code functionality"""
+# Function to calculate the total cost of the holiday
+def calculate_cost():
+    city_flight = city_var.get().lower()
+    x = int(passenger_entry.get())
+    num_nights = int(nights_entry.get())
+    y = int(rooms_entry.get())
+    rental_days = int(car_entry.get())
+    
+    total_cost = holiday_cost(city_flight, x, num_nights, y, rental_days)
+    messagebox.showinfo("Total Cost", f"The total cost of your holiday is £{total_cost}")
+
+# Create the main window
+root = tk.Tk()
+root.title("Holiday Maker")
+
+# Create labels and entries for user input
+tk.Label(root, text="Select City:").grid(row=0, column=0, padx=5, pady=5, sticky="e")
+city_var = tk.StringVar()
+city_var.set("Milan")
+city_dropdown = tk.OptionMenu(root, city_var, "Milan", "Berlin", "Paris")
+city_dropdown.grid(row=0, column=1, padx=5, pady=5)
+
+tk.Label(root, text="Number of Passengers:").grid(row=1, column=0, padx=5, pady=5, sticky="e")
+passenger_entry = tk.Entry(root)
+passenger_entry.grid(row=1, column=1, padx=5, pady=5)
+
+tk.Label(root, text="Number of Nights:").grid(row=2, column=0, padx=5, pady=5, sticky="e")
+nights_entry = tk.Entry(root)
+nights_entry.grid(row=2, column=1, padx=5, pady=5)
+
+tk.Label(root, text="Number of Rooms:").grid(row=3, column=0, padx=5, pady=5, sticky="e")
+rooms_entry = tk.Entry(root)
+rooms_entry.grid(row=3, column=1, padx=5, pady=5)
+
+tk.Label(root, text="Number of Car Rental Days:").grid(row=4, column=0, padx=5, pady=5, sticky="e")
+car_entry = tk.Entry(root)
+car_entry.grid(row=4, column=1, padx=5, pady=5)
+
+# Create a button to calculate the total cost
+calculate_button = tk.Button(root, text="Calculate Cost", command=calculate_cost)
+calculate_button.grid(row=5, columnspan=2, padx=5, pady=5)
+
+# Run the GUI
+root.mainloop()
+
 
 # Greet the user.
 print(('____' * 18) + '''\nGreetings! And welcome to 'The Holiday Maker!'
