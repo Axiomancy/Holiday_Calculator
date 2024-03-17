@@ -26,6 +26,7 @@ def hotel_cost(num_nights, y):
 
 # Calculates the total cost of the flight times by number of passengers
 def plane_cost(city_flight, x):
+    city_flight = city_flight.lower()  # Convert input to lowercase
     if city_flight in ['milan']:
         cost = 80
     elif city_flight in ['berlin']:
